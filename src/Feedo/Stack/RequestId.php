@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Stack;
+namespace Feedo\Stack;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -42,10 +41,8 @@ class RequestId implements HttpKernelInterface
      */
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
-        if ( ! $request->headers->has($this->header)) {
-            $request->headers->set($this->header, $this->generator->generate());
-        }
-
+        // will always set the header to the generated value to avoid spoofing
+        $request->headers->set($this->header, $this->generator->generate());
         $response = $this->app->handle($request, $type, $catch);
 
         if (null !== $this->responseHeader) {

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Stack;
+namespace Feedo\Test\Stack;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {

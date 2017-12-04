@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Stack\RequestId;
+namespace Feedo\Stack\RequestId;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
@@ -20,25 +20,28 @@ class MonologProcessor
 {
     private $header;
     private $requestId;
+    private $extraArgName;
 
     /**
      * @param string $header
+     * @param string $extraArgName
      */
-    public function __construct($header = 'X-Request-Id')
+    public function __construct($header = 'X-Request-Id', $extraArgName = 'request-id')
     {
         $this->header = $header;
+        $this->extraArgName = $extraArgName;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request         = $event->getRequest();
+        $request = $event->getRequest();
         $this->requestId = $request->headers->get($this->header, false);
     }
 
     public function __invoke(array $record)
     {
         if ($this->requestId) {
-            $record['extra']['request_id'] = $this->requestId;
+            $record['extra'][$this->extraArgName] = $this->requestId;
         }
 
         return $record;

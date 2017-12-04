@@ -9,17 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Stack;
+namespace Feedo\Test\Stack;
 
-class UuidRequestIdGeneratorTest extends TestCase
+use Feedo\Stack\Uuid4YoutubeLikeRequestIdGenerator;
+
+class Uuid4YoutubeLikeRequestIdGeneratorTest extends TestCase
 {
     /**
      * @test
      */
     public function it_generates_a_string()
     {
-        $generator = new UuidRequestIdGenerator();
-
+        $generator = new Uuid4YoutubeLikeRequestIdGenerator();
         $this->assertInternalType('string', $generator->generate());
     }
 }

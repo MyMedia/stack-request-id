@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-0": {
-            "Qandidate\\Stack": "src/"
+            "Feedo\\Stack": "src/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "Qandidate\\Stack": "test/"
+        "psr-4": {
+            "Feedo\\Test\\Stack\\": "test/"
         }
     },
     "require-dev": {

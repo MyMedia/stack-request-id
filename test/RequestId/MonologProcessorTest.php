@@ -9,13 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Stack\RequestId;
+namespace Feedo\Test\Stack\RequestId;
 
-use Qandidate\Stack\TestCase;
+use Feedo\Stack\RequestId\MonologProcessor;
+use Feedo\Test\Stack\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class MonologProcessorTest extends TestCase
 {
+    /**
+     * @var MonologProcessor
+     */
     private $processor;
     private $header = 'Foo-Id';
 
@@ -67,6 +72,10 @@ class MonologProcessorTest extends TestCase
         $this->assertEquals($expectedRecord, $this->invokeProcessor($record));
     }
 
+    /**
+     * @param bool $requestId
+     * @return \PHPUnit_Framework_MockObject_MockObject|GetResponseEvent
+     */
     private function createGetResponseEvent($requestId = false)
     {
         $getResponseEventMock = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
@@ -89,6 +98,6 @@ class MonologProcessorTest extends TestCase
 
     private function invokeProcessor(array $record)
     {
-        return call_user_func_array($this->processor, array($record));
+        return call_user_func($this->processor, $record);
     }
 }
