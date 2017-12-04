@@ -1,5 +1,5 @@
 {
-    "name": "qandidate/stack-request-id",
+    "name": "mymedia/stack-request-id",
     "description": "Middleware for adding request id to Symfony Request.",
     "license": "MIT",
     "require": {
@@ -19,6 +19,10 @@
         {
             "name": "Qandidate.com",
             "homepage": "http://labs.qandidate.com/"
+        },
+        {
+            "name": "Feedo",
+            "email": "vyvoj@feedo.cz"
         }
     ],
     "suggest": {
