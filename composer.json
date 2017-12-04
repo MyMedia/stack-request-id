@@ -25,8 +25,8 @@
         "symfony/monolog-bundle": "For registering the MonologProcessor"
     },
     "autoload": {
-        "psr-0": {
-            "Feedo\\Stack": "src/"
+        "psr-4": {
+            "Feedo\\Stack\\": "src/"
         }
     },
     "autoload-dev": {

@@ -26,7 +26,7 @@ class MonologProcessor
      * @param string $header
      * @param string $extraArgName
      */
-    public function __construct($header = 'X-Request-Id', $extraArgName = 'request-id')
+    public function __construct($header = 'X-Request-Id', $extraArgName = 'request_id')
     {
         $this->header = $header;
         $this->extraArgName = $extraArgName;
