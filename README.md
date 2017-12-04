@@ -8,7 +8,7 @@ Middleware for adding a request id to your Symfony Requests
 First, add this project to your project's composer.json
 
 ```
-$ composer require qandidate/stack-request-id ^1.0
+$ composer require mymedia/stack-request-id ^2.0
 ```
 
 ## Setting up
@@ -29,14 +29,14 @@ $kernel->terminate($request, $response);
 
 After:
 ```php5
-use Qandidate\Stack\RequestId;
-use Qandidate\Stack\UuidRequestIdGenerator;
+use Feedo\Stack\RequestId;
+use Feedo\Stack\Uuid4RequestIdGenerator;
 use Symfony\Component\HttpFoundation\Request;
 
 $kernel = new AppKernel($env, $debug);
 
 // Stack it!
-$generator = new UuidRequestIdGenerator(1337);
+$generator = new Uuid4RequestIdGenerator();
 $stack = new RequestId($kernel, $generator);
 
 $kernel->loadClassCache();
@@ -51,7 +51,7 @@ $kernel->terminate($request, $response);
 If you use Symfony's [MonologBundle] you can add the request id to your monolog logs by adding the following service definition to your services.xml file:
 
 ```XML
-<service id="qandidate.stack.request_id.monolog_processor" class="Qandidate\Stack\RequestId\MonologProcessor">
+<service id="feedo.stack.request_id.monolog_processor" class="Feedo\Stack\RequestId\MonologProcessor">
   <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="255" />
   <tag name="monolog.processor" />
 </service>
@@ -63,7 +63,7 @@ If you use Symfony's [MonologBundle] you can add the request id to your monolog 
 If you need to send the request id back with the response you can enable the response header:
 
 ```php5
-$generator = new UuidRequestIdGenerator(1337);
+$generator = new Uuid4RequestIdGenerator();
 $stack = new RequestId($kernel, $generator);
 $stack->enableResponseHeader();
 ```
@@ -78,7 +78,7 @@ If you don't have access to the `RequestId` object instance (StackPHP, for examp
 the fourth argument of the `RequestId` constructor method.
 
 ```php5
-$generator = new UuidRequestIdGenerator(1337);
+$generator = new Uuid4RequestIdGenerator();
 $stack = new RequestId($kernel, $generator, 'X-Request-Id', 'My-Custom-Request-Id');
 ```
 
@@ -92,9 +92,9 @@ If you are already using [StackPHP](http://stackphp.com), just push the `Request
 ```php5
 $kernel = new AppKernel('dev', true);
 
-$generator = new UuidRequestIdGenerator(1337);
+$generator = new Uuid4RequestIdGenerator();
 $stack = (new Stack\Builder)
-    ->push('Qandidate\Stack\RequestId', $generator, 'X-Request-Id', 'X-Request-Id')
+    ->push('Feedo\Stack\RequestId', $generator, 'X-Request-Id', 'X-Request-Id')
     ->resolve($kernel);
 
 $kernel->loadClassCache();
